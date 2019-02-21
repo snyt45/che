@@ -1,0 +1,96 @@
+#!/bin/bash
+
+open_cheatsheet() {
+filepath=`ls`
+# ディレクトリが複数存在すると､lsの実行結果にスペースが含まれる為エラーが出る｡
+# エラー回避の為､$filepathのスペースを削除｡
+filepath=${filepath//[[:space:]]/}
+
+# ファイルが存在するか確認
+if [ ! -z $filepath ]; then
+	PS3="どのチートシートを開きますか？ ："
+	# ディレクトリ配下のファイル一覧を選択候補とする
+	select cheatsheets in *
+	do
+		vim $cheatsheets
+		break
+	done
+else
+	echo エラー：ファイルが存在しません｡新たにファイルを作ってください｡
+fi
+}
+
+add_cheatsheet() {
+echo -n "新規ファイル名を入力してください："
+read newfilename
+
+# 同じファイル名が存在するか確認
+if [ -e ${newfilename}.txt ]; then
+	echo エラー：既に同じ名前のファイルが存在します｡
+	return
+fi
+
+echo -n "ファイル名は「${newfilename}.txt」でよろしいですか？ [Y/n]"
+read answer
+
+case $answer in
+	"" | "Y" | "y" | "yes" | "Yes" | "YES" )
+		touch $newfilename.txt
+		echo ${newfilename}.txtを新規作成しました｡
+		echo '>>'作成先ディレクトリ：`pwd`
+		;;
+    * )
+		echo "処理は実行されませんでした｡もう一度はじめからやり直して下さい｡"
+		;;
+esac
+}
+
+delete_cheatsheet() {
+filepath=`ls`
+# ディレクトリが複数存在すると､lsの実行結果にスペースが含まれる為エラーが出る｡
+# エラー回避の為､$filepathのスペースを削除｡
+filepath=${filepath//[[:space:]]/}
+
+# ファイルが存在するか確認
+if [ ! -z $filepath ]; then
+	PS3="どのチートシートを削除しますか？ ："
+	# ディレクトリ配下のファイル一覧を選択候補とする
+	select cheatsheets in *
+	do
+		echo -n "本当に選択したファイル「${cheatsheets}」を削除してもよろしいですか？ [Y/n]"
+		read answer
+
+		case $answer in
+			"" | "Y" | "y" | "yes" | "Yes" | "YES" )
+				rm $cheatsheets
+				echo ${cheatsheets}は削除されました｡
+				;;
+			* )
+				echo "処理は実行されませんでした｡もう一度はじめからやり直して下さい｡"
+				;;
+		esac
+
+		break
+	done
+else
+	echo エラー：ファイルが存在しません｡新たにファイルを作ってください｡
+fi
+}
+
+cd ~/dotfiles/cheatsheets
+
+# コマンドラインの第1引数の内容に合わせて､処理を変える
+case "$1" in
+	"" )
+		open_cheatsheet
+		;;
+	add )
+		add_cheatsheet
+		;;
+	delete )
+		delete_cheatsheet
+		;;
+	* )
+		echo "エラー：第1引数にはaddかdeleteを指定してください"
+		;;
+esac
