@@ -15,47 +15,43 @@ Why `cheetah`? Too long
 `che` It is just right for me
 
 ## Description
-ターミナル上でチートシート(.txt)を開く､削除､追加の3つの機能が簡単に使えます｡
+A shell script that invokes a list of multiple text files and opens in vim.
+
+Three functions of opening, adding, and deleting cheat sheets (. Txt) on the command line are easy to use.
 
 ## Demo
-30秒以内に収めたい｡
-★che
- vimとマークダウンとMacと削除用(test)のチートシートを用意｡
- vimのチートーシートを開き､コマンドを確認する
- そのときに､新しく覚えたコマンドを入力し､保存後に閉じる｡
-
-che add
- 新しくチートシートを追加したいときに使う｡
- slackのコマンドを追加したい｡
- slackのチートを追加し､新しく覚えたコマンドを入力し､保存後に閉じる
-
-che delete
- 不要になったチートシート(test)を削除する｡
- 削除後､もう一度openで確認する｡
+![che](https://user-images.githubusercontent.com/18102695/53206581-ad1d5e00-3674-11e9-9be4-89fb7a581fb4.gif)
 
 ## Usage
-cheはコマンドラインから実行されます｡
+che is executed from the command line.
 
-che
-che add
-che delete
+`che` Select the cheat sheet and open it.
 
-開くファイルは､ただのテキストファイルなので見やすいように煮るなり焼くなりしてください｡
+`che add` I will create a new cheat sheet.
 
-## DIRECTORY STRUCTURES
+`che delete` Select the cheat sheet and delete it.
+
+The cheat sheet is just a text file, let's create your own cheat sheet.
+
+## Directory Structures
 ~/<br>
-└ dotfiles/ # ユーザーの設定ファイル<br>
-　　└ cheatsheets/ # チートシート一覧
+└ dotfiles/ # User configuration file<br>
+　　└ cheatsheets/ # Cheat sheet list 
 
 ## Install
-使用前に､チートシートを管理するディレクトリとシェルスクリプトを管理するディレクトリが必要です｡
-シェルスクリプトを管理するディレクトリはパスを通す必要があります(パスが通っている場所にcheを置けばどこからでも動作します) ｡
 
-どこでも良いので､シェルスクリプト置き場にダウンロード（おすすめの管理ディレクトリは､~/bin/）｡
-$ git clone 
+### Preparation
 
-上記のシェルスクリプト置き場をサーチパスに追加
-$ PATH
+Things necessary:
+* Directory ⇒ Please make a directory referring to Directory Structures.
+
+Shell script place:
+* `che` is a shell script, either pass a new path or move to an existing shell script storage place.
+
+### Installation method
+```
+$ git clone https://github.com/snyt45/che.git
+```
 
 ## Licence
 
